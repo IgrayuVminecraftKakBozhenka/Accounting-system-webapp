@@ -41,4 +41,9 @@ public class PaymentRepository {
         }
         return payment;
     }
+
+    public void deletePaymentById(int id) {
+        Payment payment = this.findPaymentById(id);
+        payments.remove(payment);
+    }
 }

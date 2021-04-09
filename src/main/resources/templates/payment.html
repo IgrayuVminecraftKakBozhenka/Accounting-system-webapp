@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Другая страница</title>
+    <title>Выплата</title>
+    <link th:href="@{/styles/payment.css}" href="../static/styles/payment.css" rel="stylesheet">
 </head>
 <body>
 <h1 th:text="'За ' + ${payment.getDate()}">Начисление за март 2020 </h1>

@@ -2,10 +2,8 @@ package ru.sibadi.demowebapp.pages;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import ru.sibadi.demowebapp.domain.Payment;
 import ru.sibadi.demowebapp.domain.Person;
 import ru.sibadi.demowebapp.repository.PaymentRepository;
 import ru.sibadi.demowebapp.repository.PersonRepository;
@@ -69,5 +67,13 @@ public class PagesController {
         // System.out.println(id + " " + name + " " + salary);
         personRepository.addPerson(name, salary);
         return "redirect:/";
+    }
+
+    @RequestMapping(value="/delete", method=RequestMethod.GET)
+    public String deletePayment(@RequestParam("paymentId") int paymentId, Model model) {
+        Payment payment = paymentRepository.findPaymentById(paymentId);
+        int personId = payment.getPersonId();
+        paymentRepository.deletePaymentById(paymentId);
+        return "redirect:/person/" + personId;
     }
 }

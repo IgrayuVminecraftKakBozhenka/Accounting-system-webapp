@@ -21,7 +21,7 @@ h1 {
     transition: all .3s ease-out;
 }
 
-.delete_person {
+.delete_payment {
     position: relative;
     width: 3em;
     height: 3em;

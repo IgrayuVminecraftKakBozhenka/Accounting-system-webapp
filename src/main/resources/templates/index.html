@@ -7,17 +7,16 @@
 </head>
 <body>
 <h1>Сотрудники</h1>
+<h2>Добавить нового сотрудника</h2>
 <form method="post" th:action="@{'/person'}">
     <label>Фамилия: <input name="name"/></label>
     <label>Зарплата: <input name="salary"/></label>
     <button type="submit">Сохранить</button>
 </form>
+<h2>Список сотркдников</h2>
     <ol class="employees_list">
         <li th:each="p : ${persons}">
             <a th:href="'person/' + ${p.id}" th:text="${p.name}">Надыкто М.О.</a>
-            <button class="delete_person">
-                &#10006
-            </button>
         </li>
     </ol>
 </body>
