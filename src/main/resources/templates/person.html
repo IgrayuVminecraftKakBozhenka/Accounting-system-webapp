@@ -12,6 +12,13 @@
     <label>Зарплата: <input th:value="${person.salary}" name="salary"/></label>
     <button type="submit">Сохранить</button>
 </form>
+<h2>Добавить начисление</h2>
+<form method="post" th:action="@{'/person/' + ${person.getId()} + '/payment'}">
+    <label>Зарплата: <input name="salary"/></label>
+    <label>Премия: <input name="prize"/></label>
+    <label>Период: <input name="date"/></label>
+    <button type="submit">Сохранить</button>
+</form>
 <h2>Его начисления:</h2>
 <ol class="employees_list">
     <li th:each="p : ${payments}">

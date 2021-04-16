@@ -59,12 +59,13 @@ public class PagesController {
         return "redirect:/person/" + id;
     }
 
+
+
     @PostMapping("/person")
     public String personSave(
             @RequestParam("name") String name,
             @RequestParam("salary") int salary
     ) {
-        // System.out.println(id + " " + name + " " + salary);
         personRepository.addPerson(name, salary);
         return "redirect:/";
     }
@@ -74,6 +75,29 @@ public class PagesController {
         Payment payment = paymentRepository.findPaymentById(paymentId);
         int personId = payment.getPersonId();
         paymentRepository.deletePaymentById(paymentId);
+        return "redirect:/person/" + personId;
+    }
+
+    @PostMapping("/payment/{id}")
+    public String paymentEdit(
+            @PathVariable("id") int id,
+            @RequestParam("salary") int salary,
+            @RequestParam("prize") int prize
+    ) {
+        Payment payment = paymentRepository.findPaymentById(id);
+        payment.setSalary(salary);
+        payment.setPrize(prize);
+        return "redirect:/payment/" + id;
+    }
+
+    @PostMapping("/person/{personId}/payment")
+    public String paymentSave(
+            @PathVariable("personId") int personId,
+            @RequestParam("salary") int salary,
+            @RequestParam("prize") int prize,
+            @RequestParam("date") String date
+    ) {
+        paymentRepository.addPayment(salary, prize, personId, date);
         return "redirect:/person/" + personId;
     }
 }
