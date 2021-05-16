@@ -1,8 +1,15 @@
 package ru.sibadi.demowebapp.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Person {
 
-    private final int id;
+    @Id
+    @GeneratedValue
+    private int id;
     private String name;
     private int salary;
 
@@ -11,6 +18,8 @@ public class Person {
         this.name = name;
         this.salary = salary;
     }
+
+    public Person() {}
 
     public int getId() {
         return id;
