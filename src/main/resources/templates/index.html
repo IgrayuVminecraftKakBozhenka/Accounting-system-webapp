@@ -13,7 +13,7 @@
     <label>Зарплата: <input name="salary"/></label>
     <button type="submit">Сохранить</button>
 </form>
-<h2>Список сотркдников</h2>
+<h2>Список сотрудников</h2>
     <ol class="employees_list">
         <li th:each="p : ${persons}">
             <a th:href="'person/' + ${p.id}" th:text="${p.name}">Надыкто М.О.</a>

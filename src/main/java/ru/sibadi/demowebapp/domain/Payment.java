@@ -1,11 +1,13 @@
 package ru.sibadi.demowebapp.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Payment {
     @Id
+    @GeneratedValue
     private int id;
     private int salary;
     private int prize;
@@ -29,7 +31,8 @@ public class Payment {
     }
 
     public int getSalary() {
-        return salary;
+        double salary = this.salary*0.87;
+        return (int)Math.round(salary);
     }
 
     public int getPrize() {

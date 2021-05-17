@@ -35,12 +35,7 @@ public class PagesController {
             @PathVariable("id") int id,
             Model model
     ) {
-        Person person = null;
-        for (Person p : personRepository.findAll()) {
-            if (p.getId() == id) {
-                person = p;
-            }
-        }
+        Person person = findPersonById(id);
 
         model.addAttribute("person", person);
         List<Payment> personPayments = new ArrayList<>();
@@ -59,12 +54,7 @@ public class PagesController {
             @PathVariable("id") int id,
             Model model
     ) {
-        Payment payment = null;
-        for (Payment p : paymentRepository.findAll()) {
-            if (p.getId() == id) {
-                payment = p;
-            }
-        }
+        Payment payment = findPaymentById(id);
         model.addAttribute("payment", payment);
         return "payment";
     }
@@ -75,12 +65,7 @@ public class PagesController {
             @RequestParam("name") String name,
             @RequestParam("salary") int salary
     ) {
-        Person person = null;
-        for (Person p : personRepository.findAll()) {
-            if (p.getId() == id) {
-                person = p;
-            }
-        }
+        Person person = findPersonById(id);
         person.setName(name);
         person.setSalary(salary);
         return "redirect:/person/" + id;
@@ -102,12 +87,7 @@ public class PagesController {
 
     @RequestMapping(value="/delete", method=RequestMethod.GET)
     public String deletePayment(@RequestParam("paymentId") int paymentId, Model model) {
-        Payment payment = null;
-        for (Payment p : paymentRepository.findAll()) {
-            if (p.getId() == paymentId) {
-                payment = p;
-            }
-        }
+        Payment payment = findPaymentById(paymentId);
         int personId = payment.getPersonId();
         paymentRepository.delete(payment);
         return "redirect:/person/" + personId;
@@ -119,12 +99,7 @@ public class PagesController {
             @RequestParam("salary") int salary,
             @RequestParam("prize") int prize
     ) {
-        Payment payment = null;
-        for (Payment p : paymentRepository.findAll()) {
-            if (p.getId() == id) {
-                payment = p;
-            }
-        }
+        Payment payment = findPaymentById(id);
         payment.setSalary(salary);
         payment.setPrize(prize);
         return "redirect:/payment/" + id;
@@ -144,5 +119,25 @@ public class PagesController {
         payment.setDate(date);
         paymentRepository.save(payment);
         return "redirect:/person/" + personId;
+    }
+
+    public Payment findPaymentById (int id) {
+        Payment payment = null;
+        for (Payment p : paymentRepository.findAll()) {
+            if (p.getId() == id) {
+                payment = p;
+            }
+        }
+        return payment;
+    }
+
+    public Person findPersonById (int id) {
+        Person person = null;
+        for (Person p : personRepository.findAll()) {
+            if (p.getId() == id) {
+                person = p;
+            }
+        }
+        return person;
     }
 }
