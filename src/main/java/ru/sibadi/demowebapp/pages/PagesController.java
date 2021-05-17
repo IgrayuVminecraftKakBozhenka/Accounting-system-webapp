@@ -22,7 +22,7 @@ public class PagesController {
     // GET http://localhost:8080/
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("persons", personRepository.findAllPersons());
+        model.addAttribute("persons", personRepository.findAll());
         return "index"; // index.html
     }
 
@@ -66,7 +66,10 @@ public class PagesController {
             @RequestParam("name") String name,
             @RequestParam("salary") int salary
     ) {
-        personRepository.addPerson(name, salary);
+        Person person = new Person();
+        person.setName(name);
+        person.setSalary(salary);
+        personRepository.save(person);
         return "redirect:/";
     }
 
