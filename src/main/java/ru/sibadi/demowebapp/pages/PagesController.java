@@ -8,6 +8,9 @@ import ru.sibadi.demowebapp.domain.Person;
 import ru.sibadi.demowebapp.repository.PaymentRepository;
 import ru.sibadi.demowebapp.repository.PersonRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Controller
 public class PagesController {
@@ -32,8 +35,21 @@ public class PagesController {
             @PathVariable("id") int id,
             Model model
     ) {
-        model.addAttribute("person", personRepository.findPersonById(id));
-        model.addAttribute("payments", paymentRepository.findPaymentsByPersonId(id));
+        Person person = null;
+        for (Person p : personRepository.findAll()) {
+            if (p.getId() == id) {
+                person = p;
+            }
+        }
+
+        model.addAttribute("person", person);
+        List<Payment> personPayments = new ArrayList<>();
+        for (Payment p : paymentRepository.findAll()) {
+            if (p.getPersonId() == id) {
+                personPayments.add(p);
+            }
+        }
+        model.addAttribute("payments", personPayments);
         return "person"; // person.html
     }
 
@@ -43,7 +59,13 @@ public class PagesController {
             @PathVariable("id") int id,
             Model model
     ) {
-        model.addAttribute("payment", paymentRepository.findPaymentById(id));
+        Payment payment = null;
+        for (Payment p : paymentRepository.findAll()) {
+            if (p.getId() == id) {
+                payment = p;
+            }
+        }
+        model.addAttribute("payment", payment);
         return "payment";
     }
 
@@ -53,7 +75,12 @@ public class PagesController {
             @RequestParam("name") String name,
             @RequestParam("salary") int salary
     ) {
-        Person person = personRepository.findPersonById(id);
+        Person person = null;
+        for (Person p : personRepository.findAll()) {
+            if (p.getId() == id) {
+                person = p;
+            }
+        }
         person.setName(name);
         person.setSalary(salary);
         return "redirect:/person/" + id;
@@ -75,9 +102,14 @@ public class PagesController {
 
     @RequestMapping(value="/delete", method=RequestMethod.GET)
     public String deletePayment(@RequestParam("paymentId") int paymentId, Model model) {
-        Payment payment = paymentRepository.findPaymentById(paymentId);
+        Payment payment = null;
+        for (Payment p : paymentRepository.findAll()) {
+            if (p.getId() == paymentId) {
+                payment = p;
+            }
+        }
         int personId = payment.getPersonId();
-        paymentRepository.deletePaymentById(paymentId);
+        paymentRepository.delete(payment);
         return "redirect:/person/" + personId;
     }
 
@@ -87,7 +119,12 @@ public class PagesController {
             @RequestParam("salary") int salary,
             @RequestParam("prize") int prize
     ) {
-        Payment payment = paymentRepository.findPaymentById(id);
+        Payment payment = null;
+        for (Payment p : paymentRepository.findAll()) {
+            if (p.getId() == id) {
+                payment = p;
+            }
+        }
         payment.setSalary(salary);
         payment.setPrize(prize);
         return "redirect:/payment/" + id;
@@ -100,7 +137,12 @@ public class PagesController {
             @RequestParam("prize") int prize,
             @RequestParam("date") String date
     ) {
-        paymentRepository.addPayment(salary, prize, personId, date);
+        Payment payment = new Payment();
+        payment.setPrize(prize);
+        payment.setSalary(salary);
+        payment.setPersonId(personId);
+        payment.setDate(date);
+        paymentRepository.save(payment);
         return "redirect:/person/" + personId;
     }
 }

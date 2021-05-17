@@ -11,7 +11,4 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
 
     List<Person> persons = new ArrayList<>();
 
-
-    Person findPersonById(int id);
-
 }

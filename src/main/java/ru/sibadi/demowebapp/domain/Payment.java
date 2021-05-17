@@ -52,6 +52,10 @@ public class Payment {
         this.personId = personId;
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public String getDate() {
         return date;
     }
