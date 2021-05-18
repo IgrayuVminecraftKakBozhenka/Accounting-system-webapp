@@ -25,7 +25,7 @@ public class PagesController {
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("persons", personRepository.findAll());
-        return "index"; // index.html
+        return "index";
     }
 
     @GetMapping("/person/{id}")

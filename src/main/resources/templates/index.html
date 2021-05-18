@@ -16,7 +16,7 @@
 <h2>Список сотрудников</h2>
     <ol class="employees_list">
         <li th:each="p : ${persons}">
-            <a th:href="'person/' + ${p.id}" th:text="${p.name}">Надыкто М.О.</a>
+            <a th:href="'person/' + ${p.id}" th:text="${p.name}"/>
         </li>
     </ol>
 </body>
