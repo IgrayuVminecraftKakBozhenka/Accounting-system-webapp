@@ -1,4 +1,4 @@
-package ru.sibadi.demowebapp.domain;
+package com.example.demo.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,8 +1,10 @@
-package ru.sibadi.demowebapp.domain;
+package com.example.demo.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import static com.example.demo.domain.NOLOGI.NOLOG;
 
 @Entity
 public class Payment {
@@ -31,7 +33,7 @@ public class Payment {
     }
 
     public int getSalary() {
-        double salary = this.salary*0.87;
+        double salary = this.salary*NOLOG;
         return (int)Math.round(salary);
     }
 

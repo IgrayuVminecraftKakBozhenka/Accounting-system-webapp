@@ -1,12 +1,12 @@
-package ru.sibadi.demowebapp.pages;
+package com.example.demo.pages;
 
+import com.example.demo.domain.Payment;
+import com.example.demo.repository.PaymentRepository;
+import com.example.demo.repository.PersonRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.sibadi.demowebapp.domain.Payment;
-import ru.sibadi.demowebapp.domain.Person;
-import ru.sibadi.demowebapp.repository.PaymentRepository;
-import ru.sibadi.demowebapp.repository.PersonRepository;
+import com.example.demo.domain.Person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +22,12 @@ public class PagesController {
         this.paymentRepository = paymentRepository;
     }
 
-    // GET http://localhost:8080/
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("persons", personRepository.findAll());
         return "index"; // index.html
     }
 
-    // GET http://localhost:8080/person/200
     @GetMapping("/person/{id}")
     public String personPage(
             @PathVariable("id") int id,
@@ -45,10 +43,9 @@ public class PagesController {
             }
         }
         model.addAttribute("payments", personPayments);
-        return "person"; // person.html
+        return "person";
     }
 
-    // GET http://localhost:8080/person/payment/200
     @GetMapping("/payment/{id}")
     public String paymentPage(
             @PathVariable("id") int id,
@@ -70,8 +67,6 @@ public class PagesController {
         person.setSalary(salary);
         return "redirect:/person/" + id;
     }
-
-
 
     @PostMapping("/person")
     public String personSave(
